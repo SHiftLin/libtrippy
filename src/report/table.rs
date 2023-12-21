@@ -1,9 +1,9 @@
 use crate::backend::trace::Trace;
+use crate::dns::Resolver;
 use crate::TraceInfo;
 use comfy_table::presets::{ASCII_MARKDOWN, UTF8_FULL};
 use comfy_table::{ContentArrangement, Table};
 use itertools::Itertools;
-use trippy::dns::Resolver;
 
 /// Generate a markdown table report of trace data.
 pub fn report_md<R: Resolver>(

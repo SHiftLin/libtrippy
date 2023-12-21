@@ -1,9 +1,9 @@
 use crate::backend::trace::Trace;
+use crate::dns::Resolver;
 use crate::report::types::Hop;
 use crate::TraceInfo;
 use anyhow::anyhow;
 use std::thread::sleep;
-use trippy::dns::Resolver;
 
 /// Display a continuous stream of trace data.
 pub fn report<R: Resolver>(info: &TraceInfo, resolver: &R) -> anyhow::Result<()> {

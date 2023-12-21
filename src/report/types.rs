@@ -1,9 +1,9 @@
 use crate::backend;
+use crate::dns::Resolver;
 use itertools::Itertools;
 use serde::{Serialize, Serializer};
 use std::fmt::{Display, Formatter};
 use std::net::IpAddr;
-use trippy::dns::Resolver;
 
 #[derive(Serialize)]
 pub struct Report {
@@ -97,8 +97,8 @@ pub struct Extensions {
     pub extensions: Vec<Extension>,
 }
 
-impl From<&trippy::tracing::Extensions> for Extensions {
-    fn from(value: &trippy::tracing::Extensions) -> Self {
+impl From<&crate::tracing::Extensions> for Extensions {
+    fn from(value: &crate::tracing::Extensions) -> Self {
         Self {
             extensions: value
                 .extensions
@@ -124,13 +124,13 @@ pub enum Extension {
     Mpls(MplsLabelStack),
 }
 
-impl From<trippy::tracing::Extension> for Extension {
-    fn from(value: trippy::tracing::Extension) -> Self {
+impl From<crate::tracing::Extension> for Extension {
+    fn from(value: crate::tracing::Extension) -> Self {
         match value {
-            trippy::tracing::Extension::Unknown(unknown) => {
+            crate::tracing::Extension::Unknown(unknown) => {
                 Self::Unknown(UnknownExtension::from(unknown))
             }
-            trippy::tracing::Extension::Mpls(mpls) => Self::Mpls(MplsLabelStack::from(mpls)),
+            crate::tracing::Extension::Mpls(mpls) => Self::Mpls(MplsLabelStack::from(mpls)),
         }
     }
 }
@@ -149,8 +149,8 @@ pub struct MplsLabelStack {
     pub members: Vec<MplsLabelStackMember>,
 }
 
-impl From<trippy::tracing::MplsLabelStack> for MplsLabelStack {
-    fn from(value: trippy::tracing::MplsLabelStack) -> Self {
+impl From<crate::tracing::MplsLabelStack> for MplsLabelStack {
+    fn from(value: crate::tracing::MplsLabelStack) -> Self {
         Self {
             members: value
                 .members
@@ -175,8 +175,8 @@ pub struct MplsLabelStackMember {
     pub ttl: u8,
 }
 
-impl From<trippy::tracing::MplsLabelStackMember> for MplsLabelStackMember {
-    fn from(value: trippy::tracing::MplsLabelStackMember) -> Self {
+impl From<crate::tracing::MplsLabelStackMember> for MplsLabelStackMember {
+    fn from(value: crate::tracing::MplsLabelStackMember) -> Self {
         Self {
             label: value.label,
             exp: value.exp,
@@ -199,8 +199,8 @@ pub struct UnknownExtension {
     pub bytes: Vec<u8>,
 }
 
-impl From<trippy::tracing::UnknownExtension> for UnknownExtension {
-    fn from(value: trippy::tracing::UnknownExtension) -> Self {
+impl From<crate::tracing::UnknownExtension> for UnknownExtension {
+    fn from(value: crate::tracing::UnknownExtension) -> Self {
         Self {
             class_num: value.class_num,
             class_subtype: value.class_subtype,

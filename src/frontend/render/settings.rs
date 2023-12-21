@@ -1,15 +1,15 @@
 use crate::config::{AddressMode, AsMode, GeoIpMode};
+use crate::dns::ResolveMethod;
 use crate::frontend::render::util;
 use crate::frontend::theme;
 use crate::frontend::tui_app::TuiApp;
+use crate::tracing::PortDirection;
 use humantime::format_duration;
 use ratatui::layout::{Alignment, Constraint, Direction, Layout, Rect};
 use ratatui::style::{Modifier, Style};
 use ratatui::text::{Line, Span};
 use ratatui::widgets::{Block, BorderType, Borders, Cell, Clear, Paragraph, Row, Table, Tabs};
 use ratatui::Frame;
-use trippy::dns::ResolveMethod;
-use trippy::tracing::PortDirection;
 
 /// Render settings dialog.
 pub fn render(f: &mut Frame<'_>, app: &mut TuiApp) {

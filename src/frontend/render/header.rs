@@ -1,4 +1,6 @@
+use crate::dns::{ResolveMethod, Resolver};
 use crate::frontend::tui_app::TuiApp;
+use crate::tracing::{PortDirection, TracerProtocol};
 use chrono::SecondsFormat;
 use humantime::format_duration;
 use ratatui::layout::{Alignment, Rect};
@@ -7,8 +9,6 @@ use ratatui::text::{Line, Span};
 use ratatui::widgets::{Block, BorderType, Borders, Paragraph};
 use ratatui::Frame;
 use std::time::Duration;
-use trippy::dns::{ResolveMethod, Resolver};
-use trippy::tracing::{PortDirection, TracerProtocol};
 
 /// Render the title, config, target, clock and keyboard controls.
 #[allow(clippy::too_many_lines)]

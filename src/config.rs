@@ -1,4 +1,8 @@
+use crate::dns::ResolveMethod;
 use crate::platform::Platform;
+use crate::tracing::{
+    MultipathStrategy, PortDirection, PrivilegeMode, TracerAddrFamily, TracerProtocol,
+};
 use anyhow::anyhow;
 use binding::TuiCommandItem;
 use clap::{Command, CommandFactory, ValueEnum};
@@ -13,10 +17,6 @@ use std::str::FromStr;
 use std::time::Duration;
 use strum::VariantNames;
 use theme::TuiThemeItem;
-use trippy::dns::ResolveMethod;
-use trippy::tracing::{
-    MultipathStrategy, PortDirection, PrivilegeMode, TracerAddrFamily, TracerProtocol,
-};
 
 mod binding;
 mod cmd;

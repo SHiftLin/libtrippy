@@ -1,6 +1,7 @@
 use crate::backend::flows::FlowId;
 use crate::backend::trace::Hop;
 use crate::backend::trace::Trace;
+use crate::dns::{DnsResolver, ResolveMethod};
 use crate::frontend::config::TuiConfig;
 use crate::frontend::render::settings::SETTINGS_TABS;
 use crate::geoip::GeoIpLookup;
@@ -8,7 +9,6 @@ use crate::TraceInfo;
 use itertools::Itertools;
 use ratatui::widgets::TableState;
 use std::time::SystemTime;
-use trippy::dns::{DnsResolver, ResolveMethod};
 
 pub struct TuiApp {
     pub selected_tracer_data: Trace,

@@ -1,4 +1,5 @@
 use crate::config::AddressMode;
+use crate::dns::DnsResolver;
 use crate::frontend::binding::CTRL_C;
 use crate::geoip::GeoIpLookup;
 use crate::TraceInfo;
@@ -14,7 +15,6 @@ use ratatui::{
     Terminal,
 };
 use std::io;
-use trippy::dns::DnsResolver;
 use tui_app::TuiApp;
 
 mod binding;

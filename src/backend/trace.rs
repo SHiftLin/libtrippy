@@ -1,11 +1,11 @@
 use crate::backend::flows::{Flow, FlowId, FlowRegistry};
 use crate::config::MAX_HOPS;
+use crate::tracing::{Extensions, Probe, ProbeStatus, TracerRound};
 use indexmap::IndexMap;
 use std::collections::HashMap;
 use std::iter::once;
 use std::net::{IpAddr, Ipv4Addr};
 use std::time::Duration;
-use trippy::tracing::{Extensions, Probe, ProbeStatus, TracerRound};
 
 /// The state of all hops in a trace.
 #[derive(Debug, Clone)]

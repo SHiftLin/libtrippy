@@ -1,10 +1,12 @@
 use crate::backend::trace::Hop;
 use crate::config::{AddressMode, AsMode, GeoIpMode, IcmpExtensionMode};
+use crate::dns::{AsInfo, DnsEntry, DnsResolver, Resolved, Resolver, Unresolved};
 use crate::frontend::columns::{Column, Columns};
 use crate::frontend::config::TuiConfig;
 use crate::frontend::theme::Theme;
 use crate::frontend::tui_app::TuiApp;
 use crate::geoip::{GeoIpCity, GeoIpLookup};
+use crate::tracing::{Extension, Extensions, MplsLabelStackMember, UnknownExtension};
 use itertools::Itertools;
 use ratatui::layout::{Constraint, Rect};
 use ratatui::style::{Modifier, Style};
@@ -12,8 +14,6 @@ use ratatui::widgets::{Block, BorderType, Borders, Cell, Row, Table};
 use ratatui::Frame;
 use std::net::IpAddr;
 use std::rc::Rc;
-use trippy::dns::{AsInfo, DnsEntry, DnsResolver, Resolved, Resolver, Unresolved};
-use trippy::tracing::{Extension, Extensions, MplsLabelStackMember, UnknownExtension};
 
 /// Render the table of data about the hops.
 ///

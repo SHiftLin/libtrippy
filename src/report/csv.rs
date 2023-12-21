@@ -1,10 +1,10 @@
 use crate::backend::trace::Trace;
+use crate::dns::Resolver;
 use crate::report::types::fixed_width;
 use crate::{backend, TraceInfo};
 use itertools::Itertools;
 use serde::Serialize;
 use std::net::IpAddr;
-use trippy::dns::Resolver;
 
 /// Generate a CSV report of trace data.
 pub fn report<R: Resolver>(
