@@ -35,6 +35,7 @@ pub struct Hop {
     pub worst: f64,
     #[serde(serialize_with = "fixed_width")]
     pub stddev: f64,
+    pub samples: Vec<f64>,
 }
 
 impl<R: Resolver> From<(&backend::trace::Hop, &R)> for Hop {
@@ -53,6 +54,11 @@ impl<R: Resolver> From<(&backend::trace::Hop, &R)> for Hop {
             best: value.best_ms().unwrap_or_default(),
             worst: value.worst_ms().unwrap_or_default(),
             stddev: value.stddev_ms(),
+            samples: value
+                .samples()
+                .iter()
+                .map(|t| t.as_micros() as f64 / 1000.0)
+                .collect(),
         }
     }
 }
