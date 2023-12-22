@@ -106,6 +106,9 @@ pub const DEFAULT_TUI_REFRESH_RATE: &str = "100ms";
 /// The default value for `tui_privacy_max_ttl`.
 pub const DEFAULT_TUI_PRIVACY_MAX_TTL: u8 = 0;
 
+/// The default value for `no_dns`.
+pub const DEFAULT_NO_DNS:bool = false;
+
 /// The default value for `dns-resolve-method`.
 pub const DEFAULT_DNS_RESOLVE_METHOD: DnsResolveMethodConfig = DnsResolveMethodConfig::System;
 

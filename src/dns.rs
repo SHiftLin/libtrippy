@@ -5,7 +5,9 @@
 //! System (AS) information.
 
 mod lazy_resolver;
+mod no_resolver;
 mod resolver;
 
 pub use lazy_resolver::{Config, DnsResolver, ResolveMethod};
+pub use no_resolver::NoResolver;
 pub use resolver::{AsInfo, DnsEntry, Error, Resolved, Resolver, Result, Unresolved};

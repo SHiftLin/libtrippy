@@ -41,6 +41,5 @@ fn main() -> anyhow::Result<()> {
     let traces = start_tracers(&cfg, &addrs, platform.pid)?;
     Platform::drop_privileges()?;
     run_frontend(&cfg, resolver, geoip_lookup, traces)?;
-
     Ok(())
 }

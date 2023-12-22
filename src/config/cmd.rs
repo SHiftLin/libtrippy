@@ -137,6 +137,10 @@ pub struct Args {
     #[arg(long)]
     pub read_timeout: Option<String>,
 
+    /// Do not perform DNS queries [default: false]. This option is not implemented yet.
+    #[arg(short, long)]
+    pub no_dns: bool,
+
     /// How to perform DNS queries [default: system]
     #[arg(value_enum, short = 'r', long)]
     pub dns_resolve_method: Option<DnsResolveMethodConfig>,

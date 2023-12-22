@@ -229,6 +229,7 @@ pub struct TrippyConfig {
     pub interface: Option<String>,
     pub multipath_strategy: MultipathStrategy,
     pub port_direction: PortDirection,
+    pub no_dns: bool,
     pub dns_timeout: Duration,
     pub dns_resolve_method: ResolveMethod,
     pub dns_lookup_as_info: bool,
@@ -317,6 +318,8 @@ impl TrippyConfig {
         } else {
             PrivilegeMode::Privileged
         };
+        let no_dns =
+            cfg_layer_bool_flag(args.no_dns, cfg_file_dns.no_dns, constants::DEFAULT_NO_DNS);
         let dns_resolve_all = cfg_layer_bool_flag(
             args.dns_resolve_all,
             cfg_file_dns.dns_resolve_all,
@@ -579,7 +582,9 @@ impl TrippyConfig {
         validate_packet_size(packet_size)?;
         validate_tui_refresh_rate(tui_refresh_rate)?;
         validate_report_cycles(report_cycles)?;
-        validate_dns(dns_resolve_method, dns_lookup_as_info)?;
+        if !no_dns {
+            validate_dns(dns_resolve_method, dns_lookup_as_info)?;
+        }
         validate_geoip(tui_geoip_mode, &geoip_mmdb_file)?;
         validate_tui_custom_columns(&tui_custom_columns)?;
         let tui_theme_items = args
@@ -613,6 +618,7 @@ impl TrippyConfig {
             source_addr,
             interface,
             port_direction,
+            no_dns,
             dns_timeout,
             dns_resolve_method,
             dns_lookup_as_info,
@@ -665,6 +671,7 @@ impl Default for TrippyConfig {
             interface: None,
             multipath_strategy: multipath_strategy(constants::DEFAULT_STRATEGY_MULTIPATH),
             port_direction: PortDirection::None,
+            no_dns: false,
             dns_timeout: duration(constants::DEFAULT_DNS_TIMEOUT),
             dns_resolve_method: dns_resolve_method(constants::DEFAULT_DNS_RESOLVE_METHOD),
             dns_lookup_as_info: constants::DEFAULT_DNS_LOOKUP_AS_INFO,

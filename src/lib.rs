@@ -143,7 +143,7 @@ pub fn start_tracers(
 }
 
 /// Start a tracer to a given target.
-fn start_tracer(
+pub fn start_tracer(
     cfg: &TrippyConfig,
     target_host: &str,
     target_addr: IpAddr,
@@ -167,6 +167,17 @@ fn start_tracer(
         target_host.to_string(),
         target_addr,
     ))
+}
+
+pub fn run_json_report<R: Resolver>(
+    args: &TrippyConfig,
+    trace: &TraceInfo,
+    resolver: R,
+) -> anyhow::Result<String> {
+    match args.mode {
+        Mode::Json => report::json::report_no_write(trace, args.report_cycles, &resolver),
+        _ => Err(anyhow!("Json mode is not enabled")),
+    }
 }
 
 /// Run the TUI, stream or report.

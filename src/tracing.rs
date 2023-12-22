@@ -4,7 +4,7 @@ mod error;
 mod net;
 mod probe;
 mod tracer;
-mod types;
+pub mod types;
 
 /// Packet wire formats.
 pub mod packet;
