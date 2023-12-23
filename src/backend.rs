@@ -1,4 +1,4 @@
-use crate::platform::Platform;
+// use crate::platform::Platform;
 use crate::tracing::{SocketImpl, Tracer, TracerChannel, TracerChannelConfig, TracerConfig};
 use parking_lot::RwLock;
 use std::fmt::Debug;
@@ -47,7 +47,7 @@ impl Backend {
                 td.write().set_error(Some(err.to_string()));
                 err
             })?;
-        Platform::drop_privileges()?;
+        // Platform::drop_privileges()?; // This will disble multi-threading
         let tracer = Tracer::new(&self.tracer_config, move |round| {
             self.trace.write().update_from_round(round);
         });
