@@ -200,7 +200,7 @@ pub fn run_json_report<R: Resolver>(
     resolver: R,
 ) -> anyhow::Result<String> {
     match args.mode {
-        Mode::Json => report::json::report_no_write(trace, args.report_cycles, &resolver),
+        Mode::Json => report::json::report_no_write_sync(trace, args.report_cycles, &resolver),
         _ => Err(anyhow!("Json mode is not enabled")),
     }
 }

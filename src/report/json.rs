@@ -27,12 +27,14 @@ pub fn report<R: Resolver>(
     Ok(serde_json::to_writer_pretty(std::io::stdout(), &report)?)
 }
 
-pub fn report_no_write<R: Resolver>(
+pub fn report_no_write_sync<R: Resolver>(
     info: &TraceInfo,
-    report_cycles: usize,
+    _report_cycles: usize,
     resolver: &R,
 ) -> anyhow::Result<String> {
-    let trace = super::wait_for_round(&info.data, report_cycles)?;
+    // This wait will cause deadlock in multi-threads.
+    // let trace = super::wait_for_round(&info.data, report_cycles)?;
+    let trace = info.data.read().clone();
     let hops: Vec<Hop> = trace
         .hops(Trace::default_flow_id())
         .iter()
