@@ -142,6 +142,31 @@ pub fn start_tracers(
         .collect::<anyhow::Result<Vec<_>>>()
 }
 
+/// Start a tracer to a given target without new thread for the backend.
+pub fn start_tracer_sync(
+    cfg: &TrippyConfig,
+    target_host: &str,
+    target_addr: IpAddr,
+    trace_identifier: u16,
+) -> Result<TraceInfo, Error> {
+    let source_addr = match cfg.source_addr {
+        None => SourceAddr::discover(target_addr, cfg.port_direction, cfg.interface.as_deref())?,
+        Some(addr) => SourceAddr::validate(addr)?,
+    };
+    let channel_config = make_channel_config(cfg, source_addr, target_addr);
+    let tracer_config = make_tracer_config(cfg, target_addr, trace_identifier)?;
+    let backend = Backend::new(tracer_config, channel_config, cfg.tui_max_samples);
+    let trace_data = backend.trace();
+    backend.start()?;
+    Ok(make_trace_info(
+        cfg,
+        trace_data,
+        source_addr,
+        target_host.to_string(),
+        target_addr,
+    ))
+}
+
 /// Start a tracer to a given target.
 pub fn start_tracer(
     cfg: &TrippyConfig,
